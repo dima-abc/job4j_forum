@@ -11,6 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * 3. Мидл
  * 3.4. Spring
  * 3.4.5. Boot
+ * PostMemRepository хранилище моделей Post в памяти.
  *
  * @author Dmitry Stepanov, user Dmitry
  * @since 05.07.2022
