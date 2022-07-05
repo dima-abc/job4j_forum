@@ -3,7 +3,9 @@ package ru.job4j.forum.repository.mem;
 import org.springframework.stereotype.Repository;
 import ru.job4j.forum.model.Post;
 
+import java.util.ArrayList;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -17,7 +19,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @since 05.07.2022
  */
 @Repository
-public class PostMemRepository {
+public class PostMemRepository implements IRepository<Post> {
     private final AtomicInteger key = new AtomicInteger();
     private final Map<Integer, Post> posts = new ConcurrentHashMap<>();
 
@@ -27,16 +29,22 @@ public class PostMemRepository {
         }
     }
 
+    @Override
     public Post save(Post post) {
-        post.setId(key.incrementAndGet());
-        return this.posts.putIfAbsent(post.getId(), post);
+        if (post.getId() == 0) {
+            post.setId(key.incrementAndGet());
+        }
+        return this.posts.merge(post.getId(), post,
+                (p1, p2) -> Post.of(p2.getName(), p2.getDescription()));
     }
 
-    public Post update(Post post) {
-        return this.posts.replace(post.getId(), post);
+    @Override
+    public Optional<Post> findById(int id) {
+        return Optional.ofNullable(this.posts.get(id));
     }
 
-    public Post findById(int id) {
-        return this.posts.get(id);
+    @Override
+    public Iterable<Post> findAll() {
+        return new ArrayList<>(this.posts.values());
     }
 }
