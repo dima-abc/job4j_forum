@@ -25,7 +25,9 @@ public class PostMemRepository implements IRepository<Post> {
 
     public PostMemRepository() {
         for (int i = 0; i < 5; i++) {
-            this.posts.put(key.incrementAndGet(), Post.of("post №" + i, "description post #" + i));
+            Post post =  Post.of("post №" + i, "description post #" + i);
+            post.setId(key.incrementAndGet());
+            this.posts.put(post.getId(), post);
         }
     }
 

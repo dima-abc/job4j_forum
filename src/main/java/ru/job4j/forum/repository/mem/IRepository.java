@@ -4,8 +4,8 @@ import java.util.Optional;
 
 /**
  * 3. Мидл
- * 3.3. Hibernate
- * 3.3.2. Mapping
+ * 3.4. Spring
+ * 3.4.5. Boot
  * IRepository основные операции управления хранилищем.
  *
  * @author Dmitry Stepanov, user Dima_Nout
