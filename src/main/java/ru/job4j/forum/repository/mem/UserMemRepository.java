@@ -20,7 +20,6 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author Dmitry Stepanov, user Dima_Nout
  * @since 05.07.2022
  */
-@Repository
 public class UserMemRepository implements IRepository<User> {
     private final AtomicInteger key = new AtomicInteger();
     private final Map<Integer, User> users = new ConcurrentHashMap<>();
@@ -30,9 +29,9 @@ public class UserMemRepository implements IRepository<User> {
         rootRole.setId(0);
         Authority userRole = Authority.of("USER");
         userRole.setId(1);
-        User root = User.of("admin", passwordEncoder.encode("root"), rootRole);
+        User root = User.of("admin", passwordEncoder.encode("root"), true, rootRole);
         root.setId(key.incrementAndGet());
-        User user = User.of("user", passwordEncoder.encode("user"), userRole);
+        User user = User.of("user", passwordEncoder.encode("user"), true, userRole);
         user.setId(key.incrementAndGet());
         users.put(root.getId(), root);
         users.put(user.getId(), user);

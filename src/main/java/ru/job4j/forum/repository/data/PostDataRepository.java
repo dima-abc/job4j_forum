@@ -8,7 +8,8 @@ import ru.job4j.forum.model.Post;
  * 3. Мидл
  * 3.4. Spring
  * 3.4.5. Boot
- * PostDataRepository spring data управление хранилищем.
+ * 1. Spring boot repository [#2095 #319661]
+ * PostDataRepository spring data управление хранилищем моделей Posts.
  *
  * @author Dmitry Stepanov, user Dmitry
  * @since 07.07.2022

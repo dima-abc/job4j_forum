@@ -9,17 +9,15 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import ru.job4j.forum.model.User;
-import ru.job4j.forum.repository.mem.UserMemRepository;
 import ru.job4j.forum.service.UserService;
 
-import javax.servlet.http.HttpSession;
 
 /**
  * 3. Мидл
  * 3.4. Spring
  * 3.4.5. Boot
  * SecurityConfig настройки авторизации Spring Boot.
+ * 2. Spring boot security [#296071]
  *
  * @author Dmitry Stepanov, user Dmitry
  * @since 06.07.2022
@@ -27,6 +25,13 @@ import javax.servlet.http.HttpSession;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    private static final String ADMIN = "ADMIN";
+    private static final String USER = "USER";
+    UserService userService;
+
+    public SecurityConfig(UserService userService) {
+        this.userService = userService;
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -35,19 +40,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        UserMemRepository users = new UserMemRepository(passwordEncoder);
-        for (User user : users.findAll()) {
-            auth.inMemoryAuthentication()
-                    .withUser(user.getUsername()).password(user.getPassword()).roles(user.getAuthority().getAuthority());
-        }
+        auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/login", "/reg").permitAll()
-                .antMatchers("/**").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/**").hasAnyRole(ADMIN, USER)
                 .and()
                 .formLogin()
                 .loginPage("/login")

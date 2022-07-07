@@ -1,5 +1,8 @@
 package ru.job4j.forum.model;
 
+import org.springframework.security.core.GrantedAuthority;
+
+import javax.persistence.*;
 import java.util.Objects;
 
 /**
@@ -7,12 +10,18 @@ import java.util.Objects;
  * 3.4. Spring
  * 3.4.5. Boot
  * Authority модель данных ролей пользователей.
+ * 2. Spring boot security [#296071]
  *
  * @author Dmitry Stepanov, user Dmitry
  * @since 05.07.2022
  */
-public class Authority {
+@Entity
+@Table(name = "authorities")
+public class Authority implements GrantedAuthority {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(nullable = false, unique = true)
     private String authority;
 
     public static Authority of(String authority) {

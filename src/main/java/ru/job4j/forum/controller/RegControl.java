@@ -8,11 +8,14 @@ import ru.job4j.forum.model.User;
 import ru.job4j.forum.service.AuthorityService;
 import ru.job4j.forum.service.UserService;
 
+import java.util.Optional;
+
 /**
  * 3. Мидл
  * 3.4. Spring
  * 3.4.5. Boot
  * RegControl контроллер регистрации нового пользователя.
+ * 2. Spring boot security [#296071]
  *
  * @author Dmitry Stepanov, user Dmitry
  * @since 06.07.2022
@@ -31,9 +34,13 @@ public class RegControl {
 
     @PostMapping("/reg")
     public String regSave(@ModelAttribute User user) {
-        user.setAuthority(authorities.findByIdRole(2).get());
+        user.setEnabled(true);
+        user.setAuthority(authorities.findByIdAuthority("ROLE_USER"));
         user.setPassword(encoder.encode(user.getPassword()));
-        users.saveUser(user);
+        Optional<User> newUser = users.saveUser(user);
+        if (newUser.isEmpty()) {
+            return "redirect:reg?error=true";
+        }
         return "redirect:/login";
     }
 

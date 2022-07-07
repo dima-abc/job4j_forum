@@ -2,6 +2,7 @@ package ru.job4j.forum.service;
 
 import org.springframework.stereotype.Service;
 import ru.job4j.forum.model.Authority;
+import ru.job4j.forum.repository.data.AuthorityDataRepository;
 import ru.job4j.forum.repository.mem.AuthorityRepository;
 
 import java.util.Optional;
@@ -10,6 +11,7 @@ import java.util.Optional;
  * 3. Мидл
  * 3.4. Spring
  * 3.4.5. Boot
+ * 2. Spring boot security [#296071]
  * AuthorityService логика управления ролями пользователей.
  *
  * @author Dmitry Stepanov, user Dmitry
@@ -17,13 +19,13 @@ import java.util.Optional;
  */
 @Service
 public class AuthorityService {
-    private final AuthorityRepository authorities;
+    private final AuthorityDataRepository authorities;
 
-    public AuthorityService(AuthorityRepository authorities) {
+    public AuthorityService(AuthorityDataRepository authorities) {
         this.authorities = authorities;
     }
 
-    public Optional<Authority> findByIdRole(int idRole) {
-        return this.authorities.findById(idRole);
+    public Authority findByIdAuthority(String authority) {
+        return this.authorities.findByAuthority(authority);
     }
 }
