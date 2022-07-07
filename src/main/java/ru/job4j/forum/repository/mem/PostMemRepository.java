@@ -18,7 +18,6 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author Dmitry Stepanov, user Dmitry
  * @since 05.07.2022
  */
-@Repository
 public class PostMemRepository implements IRepository<Post> {
     private final AtomicInteger key = new AtomicInteger();
     private final Map<Integer, Post> posts = new ConcurrentHashMap<>();

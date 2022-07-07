@@ -1,7 +1,7 @@
 package ru.job4j.forum.model;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Calendar;
 import java.util.Objects;
 
 /**
@@ -9,11 +9,16 @@ import java.util.Objects;
  * 3.4. Spring
  * 3.4.5. Boot
  * Post модель данных поста на форуме.
+ * 1. Spring boot repository [#2095]
  *
  * @author Dmitry Stepanov, user Dmitry
  * @since 05.07.2022
  */
+@Entity
+@Table(name = "posts")
 public class Post {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private String description;

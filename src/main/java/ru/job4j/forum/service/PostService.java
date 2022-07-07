@@ -2,6 +2,7 @@ package ru.job4j.forum.service;
 
 import org.springframework.stereotype.Service;
 import ru.job4j.forum.model.Post;
+import ru.job4j.forum.repository.data.PostDataRepository;
 import ru.job4j.forum.repository.mem.IRepository;
 
 import java.util.Optional;
@@ -17,9 +18,9 @@ import java.util.Optional;
  */
 @Service
 public class PostService {
-    private final IRepository<Post> posts;
+    private final PostDataRepository posts;
 
-    public PostService(final IRepository<Post> posts) {
+    public PostService(final PostDataRepository posts) {
         this.posts = posts;
     }
 
