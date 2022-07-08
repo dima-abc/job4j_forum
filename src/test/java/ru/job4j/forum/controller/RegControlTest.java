@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.job4j.forum.ForumApplication;
 
@@ -30,6 +31,7 @@ class RegControlTest {
     private MockMvc mockMvc;
 
     @Test
+    @WithMockUser
     void regPage() throws Exception {
         this.mockMvc.perform(get("/reg"))
                 .andDo(print())

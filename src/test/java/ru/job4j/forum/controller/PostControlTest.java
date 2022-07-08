@@ -7,6 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.job4j.forum.ForumApplication;
+import ru.job4j.forum.model.Post;
+import ru.job4j.forum.service.PostService;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -28,6 +30,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class PostControlTest {
     @Autowired
     private MockMvc mockMvc;
+    @Autowired
+    private PostService postService;
 
     @Test
     @WithMockUser
@@ -41,6 +45,7 @@ class PostControlTest {
     @Test
     @WithMockUser
     void postGetOk() throws Exception {
+        postService.savePost(new Post());
         this.mockMvc.perform(get("/post/1"))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -68,6 +73,7 @@ class PostControlTest {
     @Test
     @WithMockUser
     void editPostOk() throws Exception {
+        postService.savePost(new Post());
         this.mockMvc.perform(get("/editPost/1"))
                 .andDo(print())
                 .andExpect(status().isOk())
