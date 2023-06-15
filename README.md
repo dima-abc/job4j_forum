@@ -28,6 +28,10 @@
 
 <h3>Ссылка на образ <a href="https://hub.docker.com/repository/docker/dima202020/job4j_forum">Docker images</a></h3> 
 
-<h3>Ссылка на репозиторий <a href="https://github.com/Dima-Stepanov/job4j_forum">job4j_form</a></h3>
+### Контакты
+
+> email: [haoos@inbox.ru](mailto:haoos@inbox.ru) <br>
+> tl: [Dima_software](https://t.me/Dima_software) <br>
+> github.com: [Dima-Stepanov](https://github.com/Dima-Stepanov)
 
 ![](img/job4_logo.png) <br>
